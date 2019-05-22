@@ -1,0 +1,22 @@
+.content {
+    position: relative;
+}
+
+footer {
+    border: 1px solid #ccc;
+    padding: 50px;
+    background-color: #ccc
+}
+
+#to-top {
+  position:fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 100px;
+  padding: 5px;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  cursor: pointer;
+  display: none;
+}
