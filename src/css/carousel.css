@@ -17,7 +17,11 @@ body {
   margin-bottom: 4rem;
 }
 /* Since positioning the image, we need to help out the caption */
+.carouselText {
+  text-shadow: 2px 2px rgb(0, 0, 0);
+}
 .carousel-caption {
+  color: rgb(228, 228, 228);
   bottom: 3rem;
   z-index: 10;
 }
