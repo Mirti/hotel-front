@@ -22,7 +22,6 @@
   <!-- Custom styles for this template -->
   <link href="src/css/carousel.css" rel="stylesheet">
   <link href="src/css/main.css" rel="stylesheet">
-  <link href="src/css/splitter.css" rel="stylesheet">
 
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -75,8 +74,9 @@
           <img class="first-slide" src="src/img/carousel1.jpg" alt="First slide">
           <div class="container">
             <div class="carousel-caption text-left">
-              <h1>Luksusowe pokoje</h1>
-              <p>W naszym hotelu znajdziecie Państwo luksusowe pokoje, które zadowolą nawet najbardziej wymagających
+              <h1 class="carouselText">Luksusowe pokoje</h1>
+              <p class="carouselText">W naszym hotelu znajdziecie Państwo luksusowe pokoje, które zadowolą nawet
+                najbardziej wymagających
                 klientów</p>
               <p><a class="btn btn-lg btn-primary" href="#reserve" role="button">Zarezerwuj</a></p>
             </div>
@@ -86,8 +86,9 @@
           <img class="second-slide" src="src/img/carousel2.jpg" alt="Second slide">
           <div class="container">
             <div class="carousel-caption">
-              <h1>Konkurencyjne ceny</h1>
-              <p>Ceny naszych apartamentów są wyjatkowo atrakcyjne. Ceny rozpoczynają się od 80zł/noc</p>
+              <h1 class="carouselText">Konkurencyjne ceny</h1>
+              <p class="carouselText">Ceny naszych apartamentów są wyjatkowo atrakcyjne. Ceny rozpoczynają się od
+                80zł/noc</p>
               <p><a class="btn btn-lg btn-primary" href="#reserve" role="button">Zarezerwuj</a></p>
             </div>
           </div>
@@ -96,7 +97,7 @@
           <img class="third-slide" src="src/img/carousel3.jpg" alt="Third slide">
           <div class="container">
             <div class="carousel-caption text-right">
-              <h1>Sprawdź stan swojej rezerwacji</h1>
+              <h1 class="carouselText">Sprawdź stan swojej rezerwacji</h1>
               <p><a class="btn btn-lg btn-primary" href="#reserve" role="button">Sprawdź</a></p>
             </div>
           </div>
@@ -298,7 +299,8 @@
               </div>&emsp;
               <div>
                 <h3>Numer rezerwacji:</h3>
-                <input class="form-control form-control" type="text" id="reservationToken" placeholder="Numer rezerwacji">
+                <input class="form-control form-control" type="text" id="reservationToken"
+                  placeholder="Numer rezerwacji">
               </div>
             </div>
           </form>
@@ -311,8 +313,6 @@
       <div id="to-top"><a href="#"><img src="src/img/arrow-up.png" width="42" height="42"></a></div>
     </div>
     <hr class="featurette-divider">
-    <!-- FOOTER - CONTACT -->
-
   </main>
 
 
@@ -373,13 +373,13 @@
     src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.min.js"></script>
   <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
   <script type='text/javascript' src='//code.jquery.com/jquery-1.8.3.js'></script>
+  <!-- FOOTER - CONTACT -->
+  <footer>
+    <p>Hotel Testowy <br />
+      Ul. Testowa 215, 35-005 Rzeszów <br />
+      Telefon: 210-210-210 <br />
+      E-mail: <a href="mailto:hotel-testowy@test.pl">hotel-testowy@test.pl</a></p>
+  </footer>
 </body>
-<footer>
-
-  <p>Hotel Testowy <br />
-    Ul. Testowa 215, 35-005 Rzeszów <br />
-    Telefon: 210-210-210 <br />
-    E-mail: <a href="mailto:hotel-testowy@test.pl">hotel-testowy@test.pl</a></p>
-</footer>
 
 </html>
