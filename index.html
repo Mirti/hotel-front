@@ -295,13 +295,13 @@
       $(document).on('click', '#btn-available', function() {
         $.ajax({
         type:'GET',
-        url: " https://demo9702665.mockable.io/testowanie",
+        url: " http://demo9702665.mockable.io/reservation",
         headers: {
             'Access-Control-Allow-Origin': '*',
           },
         dataType: "json",
         success: function(data) {
-            sessionStorage.setItem("availableRooms", data);
+            sessionStorage.setItem("availableRooms", JSON.stringify(data));
             window.location.href = directory.concat("/reservation.html");
         }
         });

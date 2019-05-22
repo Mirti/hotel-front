@@ -103,6 +103,33 @@
         </a>
       </div>
 
+      <hr class="featurette-divider">
+      <div class="container" id="check">
+        <div class="row featurette">
+            <div class="col-md-12">
+              <table class="table" id="room-table">
+                <h2>Dostępne apartamenty:</h2>
+                  <thead>
+                    <tr>
+                      <th scope="col">Wybór</th>
+                      <th scope="col">Klasa apartamentu</th>
+                      <th scope="col">Opis</th>
+                      <th scope="col">Dostępnych apartamentów</th>
+                      <th scope="col">Liczba łóżek</th>
+                      <th scope="col">Cena</th>
+                    </tr>
+                  </thead>
+                  <tbody id="room-table-body">
+                  </tbody>
+              </table>
+      
+              <button class="btn btn-primary" id="btn-reserve">Zarezerwuj</button>
+            </div>
+        </div>
+      </div>
+
+    </hr class="featurette-divider">
+
       <!-- FOOTER - CONTACT -->
       <footer class="container" id="contact">
         <p class="float-right"><a href="#">Powrót na górę strony</a></p>
@@ -112,5 +139,34 @@
            E-mail: <a href="mailto:hotel-testowy@test.pl">hotel-testowy@test.pl</a></p>
       </footer>
     </main>
+
+    <script>
+       $(document).ready(function() {
+          var availableRooms = JSON.parse(sessionStorage.getItem("availableRooms"));
+          for(i = 0; i< availableRooms.length; i++){
+            $( "#room-table-body" ).append( "<tr>");
+            
+             $( "#room-table-body" ).append( "<td><input type='radio' name='radio'></td>" );
+         
+          switch(availableRooms[i].roomClass) {
+          case 1:
+            $( "#room-table-body" ).append( "<td>Apartament luksusowy</td>" );
+            break;
+          case 2:
+            $( "#room-table-body" ).append( "<td>Apartament standardowy</td>" );
+            break;
+          case 3:
+            $( "#room-table-body" ).append( "<td>Apartament ekonomiczny</td>" );
+            break;
+        }
+        $( "#room-table-body" ).append( "<td>"+ availableRooms[i].description +"</td>");
+        $( "#room-table-body" ).append( "<td>"+ availableRooms[i].roomsAvailable +"</td>");
+        $( "#room-table-body" ).append( "<td>"+ availableRooms[i].beds +"</td>");
+        $( "#room-table-body" ).append( "<td>"+ availableRooms[i].price +"</td>");
+        $( "#room-table-body" ).append( "</tr>");
+          }
+      });
+    </script>
+
   </body>
 </html>
