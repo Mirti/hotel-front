@@ -226,7 +226,6 @@
         <div class="row featurette">
             <div class="col-md-7">
                 <h2>Zarezerwuj teraz</h2>
-                <form>
                 <p>
                         <h3>Data przyjazdu: </h3>
                         <input type="text" id="datepickerFrom">
@@ -245,9 +244,8 @@
                                 } );
                         </script>
                 </p>
-                <button class="btn btn-primary" type="submit">Sprawdź dostępność</button>
+                <button class="btn btn-primary" id="btn-available"">Sprawdź dostępność</button>
                 <p>W przypadku problemów z rezerwacją prosimy o kontakt z hotelem</p>
-                </form>
             </div>
         </div>
       </div>
@@ -262,29 +260,20 @@
                 <form>
                 <p>
                         <h3>E-mail: </h3>
-                        <input type="text" id="datepickerFrom">
-                        <script>
-                                $( function() {
-                                  $( "#datepickerFrom" ).datepicker({ dateFormat: 'dd-mm-yy' });
-                                } );
-                        </script>
+                        <input type="text" id="reservationMail">
                 </p>
                 <p>
                         <h3>Numer rezerwacji:</h3>
-                        <input type="text" id="datepickerTo">
-                        <script>
-                                $( function() {
-                                  $( "#datepickerTo" ).datepicker({ dateFormat: 'dd-mm-yy' });
-                                } );
-                        </script>
+                        <input type="text" id="reservationToken">
+    
                 </p>
                 </form>
+                <button class="btn btn-primary" id="btn-check">Sprawdź status</button>
             </div>
         </div>
       </div>
 
     </hr class="featurette-divider">
-
 
       <!-- FOOTER - CONTACT -->
       <footer class="container" id="contact">
@@ -296,9 +285,32 @@
       </footer>
     </main>
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
 
+    <script>
+      var directory = window.location.pathname.split('/').slice(0, -1).join('/');
+      var email = document.getElementById("reservationMail").value;
+      var token = document.getElementById("reservationToken").value;
+
+// RESERVATION BUTTON
+      $(document).on('click', '#btn-available', function() {
+        $.ajax({
+        type:'GET',
+        url: " https://demo9702665.mockable.io/testowanie",
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+          },
+        dataType: "json",
+        success: function(data) {
+            sessionStorage.setItem("availableRooms", data);
+            window.location.href = directory.concat("/reservation.html");
+        }
+        });
+      });
+
+// CHECK BUTTON
+      $(document).on('click', '#btn-check', function() {
+        window.location.href = directory.concat("/check.html?email=" + email + "&token=" + token);
+      });
+    </script>
   </body>
 </html>
