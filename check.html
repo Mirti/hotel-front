@@ -12,7 +12,6 @@
 
     <!-- Bootstrap core CSS -->
     <link href="dist/css/bootstrap.min.css" rel="stylesheet">
-
     <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
@@ -49,10 +48,6 @@
                     <a class="nav-link" href="index.html#contact">Kontakt</a>
                 </li>
             </ul>
-            <!-- <form class="form-inline mt-2 mt-md-0">
-                <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-              </form> -->
         </div>
     </nav>
 </header>
@@ -128,25 +123,22 @@
 </main>
 
 <script>
-    var params = console.log(location.search
-        .substr(1)
-        .split("&"));
+    let searchParams = new URLSearchParams(window.location.search);
+    console.log("http://localhost:8080/reservations/" + searchParams.get('token'));
 
     $(document).ready(function () {
         $.ajax({
             type: 'GET',
-            url: "https://demo9702665.mockable.io/testowanie",
-            headers: {
-                'Access-Control-Allow-Origin': '*',
-            },
+            url: "http://localhost:8080/reservations/" + searchParams.get('token'),
             dataType: "json",
             success: function (data) {
-                $("#reservation-details").append("<p>Imię: " + data.name + "</p>");
-                $("#reservation-details").append("<p>Nazwisko: " + data.surname + "</p>");
-                $("#reservation-details").append("<p>E-mail: " + data.mail + "</p>");
-                $("#reservation-details").append("<p>Numer telefonu: " + data.phone + "</p>");
-                $("#reservation-details").append("<p>Data przyjazdu: " + data.from + "</p>");
-                $("#reservation-details").append("<p>Data wyjazdu: " + data.to + "</p>");
+                $("#reservation-details").append("<p>Numer rezerwacji: " + data.id + "</p>");
+                $("#reservation-details").append("<p>Imię: " + data.user.first_name + "</p>");
+                $("#reservation-details").append("<p>Nazwisko: " + data.user.last_name + "</p>");
+                $("#reservation-details").append("<p>E-mail: " + data.user.email + "</p>");
+                $("#reservation-details").append("<p>Numer telefonu: " + data.user.telephone + "</p>");
+                $("#reservation-details").append("<p>Data przyjazdu: " + data.date_start + "</p>");
+                $("#reservation-details").append("<p>Data wyjazdu: " + data.date_end + "</p>");
 
                 switch (data.roomClass) {
                     case 1:
@@ -164,16 +156,24 @@
                     case "PAID":
                         $("#reservation-details").append("<p>Status: Opłacona</p>");
                         break;
-                    case "WAIT":
+                    case "NEW":
                         $("#reservation-details").append("<p>Status: Oczekiwanie na płatność</p>");
                         break;
-                    case "CANCEL":
+                    case "CANCELLED":
                         $("#reservation-details").append("<p>Status: Anulowana</p>");
                         break;
                 }
 
+                $("#reservation-details").append('<button class="btn btn-primary" id="btn-back">Powrót</button>');
                 $("#reservation-details").append('<button class="btn btn-danger" id="btn-cancel">Anuluj rezerwację</button>');
 
+                $(document).on('click', '#btn-cancel', function () {
+                    // TUTAJ BĘDZIE DIALOG
+                });
+
+                $(document).on('click', '#btn-back', function () {
+                    window.location.href = "index.html";
+                });
             }
         });
     });

@@ -269,7 +269,7 @@
                         $(function () {
                             $('.input-daterange').datepicker({
                                 autoclose: true,
-                                dateFormat: 'yy-mm-dd'
+                                format: 'yyyy-mm-dd'
                             });
                         });
 
@@ -305,14 +305,6 @@
                 </br>
                 <form>
                     <div class="input-group">
-                        <div>
-                            <h3>E-mail: </h3>
-                            <input class="form-control form-control" type="text" id="reservationMail"
-                                   placeholder="E-mail">
-                            <p id="wrongMail" style="color: brown; visibility: hidden">
-                                Podany E-mail jest nieprawidłowy
-                            </p>
-                        </div>&emsp;
                         <div>
                             <h3>Numer rezerwacji:</h3>
                             <input class="form-control form-control" type="text" id="reservationToken"
@@ -358,31 +350,24 @@
 
     // RESERVATION BUTTON
     $(document).on('click', '#btn-available', function () {
-        var startDate = ($.date)
+        var startDate = $('#datepickerFrom').val();
+        var endDate =   $('#datepickerTo').val();
 
         $.ajax({
             type: 'GET',
-            url: 'http://localhost:8080/apartments?filter={"date_start":"2019-01-01","date_end":"2019-01-04"}',
+            url: 'http://localhost:8080/apartments?filter={"date_start":"'+ startDate +'","date_end":"'+ endDate +'"}',
             dataType: "json",
             success: function (data) {
                 sessionStorage.setItem("availableRooms", JSON.stringify(data));
                 window.location.href = directory.concat("/reservation.html");
             },
-            failed: function (data) {
-                console.log(data);
-            }
         });
     });
 
     // CHECK BUTTON
     $(document).on('click', '#btn-check', function () {
-        var email = document.getElementById("reservationMail").value;
         var token = document.getElementById("reservationToken").value;
-        if (/(.+)@(.+){2,}\.(.+){2,}/.test(email)) {
-            window.location.href = directory.concat("/check.html?email=" + email + "&token=" + token);
-        } else {
-            document.getElementById('wrongMail').style.visibility = "visible";
-        }
+            window.location.href = directory.concat("/check.html?token=" + token);
     });
 </script>
 
