@@ -4,8 +4,13 @@
 
 footer {
     border: 1px solid #ccc;
-    padding: 50px;
+    position: relative;
     background-color: #ccc
+}
+
+#footerP {
+  padding-left: 1rem;
+  padding-top: 1rem;
 }
 
 #to-top {

@@ -312,7 +312,9 @@
                         </div>
                     </div>
                 </form>
+            </br>
                 <button class="btn btn-primary" id="btn-check">Sprawdź status</button>
+                <p id="validationFailed" style="color: brown; visibility: hidden">Numer rezerwacji nieprawdłowy</p>
             </div>
             <div class=" col-md-5 order-md-1">
                 <img class="featurette-image img-fluid mx-auto" src="src/img/reception.jpg"
@@ -364,10 +366,18 @@
         });
     });
 
+    function isNumeric(value) {
+    return /^-{0,1}\d+$/.test(value);
+}
+
     // CHECK BUTTON
     $(document).on('click', '#btn-check', function () {
         var token = document.getElementById("reservationToken").value;
+        if (/^\d+$/.test(token) || token === "") {
+            document.getElementById('validationFailed').style.visibility = "visible";
+        } else {
             window.location.href = directory.concat("/check.html?token=" + token);
+        }
     });
 </script>
 
@@ -375,13 +385,11 @@
 <!-- Libraries -->
 <script type='text/javascript'
         src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.min.js"></script>
-<!-- FOOTER - CONTACT -->
-<footer>
-    <p>Hotel Testowy <br/>
-        Ul. Testowa 215, 35-005 Rzeszów <br/>
-        Telefon: 210-210-210 <br/>
-        E-mail: <a href="mailto:hotel-testowy@test.pl">hotel-testowy@test.pl</a></p>
-</footer>
 </body>
-
+<footer>
+        <p id="footerP">Hotel Testowy <br/>
+            Ul. Testowa 215, 35-005 Rzeszów <br/>
+            Telefon: 210-210-210 <br/>
+            E-mail: <a href="mailto:hotel-testowy@test.pl">hotel-testowy@test.pl</a></p>
+        </footer>
 </html>
