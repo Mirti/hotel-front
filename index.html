@@ -264,7 +264,6 @@
             <div class="col-md-7">
                 <h2 class="featurette-heading">Zarezerwuj już dziś swój pokój!</h2>
                 <h2>Najlepsze wakacje życia czekają!</h2>
-                <p>
                     <script type='text/javascript'>
                         $(function () {
                             $('.input-daterange').datepicker({
@@ -360,6 +359,8 @@
             url: 'http://localhost:8080/apartments?filter={"date_start":"'+ startDate +'","date_end":"'+ endDate +'"}',
             dataType: "json",
             success: function (data) {
+                sessionStorage.setItem("startDate", startDate);
+                sessionStorage.setItem("endDate", endDate);
                 sessionStorage.setItem("availableRooms", JSON.stringify(data));
                 window.location.href = directory.concat("/reservation.html");
             },

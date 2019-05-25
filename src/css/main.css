@@ -25,3 +25,8 @@ footer {
   cursor: pointer;
   display: none;
 }
+
+.invalid-value{
+    color:red;
+    visibility: hidden;
+}

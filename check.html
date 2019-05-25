@@ -190,7 +190,19 @@
                 buttons: {
                     "Tak": function () {
                         $(this).dialog("close");
-                        //TU TFUJ KOT
+                        $(document).on('click', '#btn-cancel', function () {
+                            $.ajax({
+                                type: 'PUT',
+                                url: 'http://localhost:8080/reservations/' + data.id,
+                                dataType: "json",
+                                data: {
+                                    "status": "CANCELLED"
+                                },
+                                success: function (result) {
+                                    console.log(1);
+                                },
+                            });
+                        });
                     },
                     "Nie": function () {
                         $(this).dialog("close");
@@ -200,6 +212,7 @@
         });
     </script>
 </body>
+<!-- FOOTER - CONTACT -->
 <footer>
         <p id="footerP">Hotel Testowy <br/>
             Ul. Testowa 215, 35-005 Rzeszów <br/>

@@ -12,6 +12,7 @@
 
     <!-- Bootstrap core CSS -->
     <link href="dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="src/css/main.css" rel="stylesheet">
 
     <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
 
@@ -48,10 +49,6 @@
                     <a class="nav-link" href="index.html#contact">Kontakt</a>
                 </li>
             </ul>
-            <!-- <form class="form-inline mt-2 mt-md-0">
-                <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-              </form> -->
         </div>
     </nav>
 </header>
@@ -126,28 +123,68 @@
                     <th scope="col">Liczba łóżek</th>
                     <th scope="col">Cena</th>
                 </tr>
+                <p class="invalid-value" id="invalidApartment">Wybierz apartament</p>
                 </thead>
                 <tbody id="room-table-body">
                 </tbody>
             </table>
-        </br>
-            <button class="btn btn-primary" id="btn-reserve">Zarezerwuj</button>
+            </br>
+
+            <h2>Twoje dane:</h2>
+            <div class="form-row">
+                <div class="col">
+                    <label for="nameInput">Imię</label>
+                    <input type="text" class="form-control" id="nameInput" placeholder="Imię">
+                    <p class="invalid-value" id="invalidName">Nieprawidłowa wartość pola</p>
+                </div>
+                <div class="col">
+                    <label for="surnameInput">Nazwisko</label>
+                    <input type="text" class="form-control" id="surnameInput" placeholder="Nazwisko">
+                    <p class="invalid-value" id="invalidSurname">Nieprawidłowa wartość pola</p>
+                </div>
+            </div>
+            <div class="form-row">
+                <label for="emailInput">E-Mail:</label>
+                <input type="text" class="form-control" id="emailInput" placeholder="E-Mail">
+                <p class="invalid-value" id="invalidEmail">Nieprawidłowa wartość pola</p>
+            </div>
+
+            <div class="form-row">
+                <label for="telephoneInput">Telefon:</label>
+                <input type="text" class="form-control" id="telephoneInput" placeholder="Telefon">
+                <p class="invalid-value" id="invalidTelephone">Nieprawidłowa wartość pola</p>
+            </div>
+
+            <div class="form-row">
+                <div class="col">
+                    <label for="fromInput">Od:</label>
+                    <input type="text" class="form-control" id="fromInput" disabled>
+                </div>
+                <div class="col">
+                    <label for="toInput">Do</label>
+                    <input type="text" class="form-control" id="toInput" disabled>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-success" id="btn-reserve">Zarezerwuj</button>
+            <button class="btn btn-primary" id="btn-back">Powrót</button>
         </div>
     </div>
 </div>
 
 </hr class="featurette-divider">
 <hr class="featurette-divider">
-</hr class="featurette-divider">
+</hr
+class="featurette-divider">
 
 </main>
 
 <script>
     $(document).ready(function () {
-        var availableRooms = JSON.parse(sessionStorage.getItem("availableRooms"));
+        const availableRooms = JSON.parse(sessionStorage.getItem("availableRooms"));
         for (i = 0; i < availableRooms.length; i++) {
             $("#room-table-body").append("<tr id = tr" + availableRooms[i].id + ">");
-            $("#tr" + availableRooms[i].id).append("<td><input type='radio' name='radio'></td>");
+            $("#tr" + availableRooms[i].id).append("<td><input type='radio' name=radio value='" + availableRooms[i].id + "'></td>");
 
             switch (availableRooms[i].type) {
                 case 'ECONOMIC':
@@ -162,19 +199,112 @@
             }
             $("#tr" + availableRooms[i].id).append("<td>" + availableRooms[i].description + "</td>");
             $("#tr" + availableRooms[i].id).append("<td>" + availableRooms[i].rooms_count + "</td>");
-            $("#tr" + availableRooms[i].id).append("<td>" + availableRooms[i].beds + "</td>");
+            $("#tr" + availableRooms[i].id).append("<td>" + availableRooms[i].beds_count + "</td>");
             $("#tr" + availableRooms[i].id).append("<td>" + availableRooms[i].price + "</td>");
             $("#tr" + availableRooms[i].id).append("</tr>");
+        }
+        $('#fromInput').val(sessionStorage.getItem("startDate"));
+        $('#toInput').val(sessionStorage.getItem("endDate"));
+
+        $(document).on('click', '#btn-back', function () {
+            window.location.href = "index.html";
+        });
+    });
+</script>
+
+<script>
+    $(document).on('click', '#btn-reserve', function () {
+        const name = $("#nameInput").val();
+        const surname = $("#surnameInput").val();
+        const email = $("#emailInput").val();
+        const telephhone = $("#telephoneInput").val();
+        const dateStart = $("#fromInput").val();
+        const dateEnd = $("#toInput").val();
+        const apartmentId = $("input[name='radio']:checked").val();
+        if (validate()){
+            $.ajax({
+                type: 'POST',
+                url: 'http://localhost:8080/reservations',
+                dataType: "json",
+                data: {
+                    "apartment_id": apartmentId,
+                    "date_start": dateStart,
+                    "date_end": dateEnd,
+                    "first_name": name,
+                    "last_name": surname,
+                    "email": email,
+                    "telephone": telephhone,
+                },
+                success: function (data) {
+                    const directory = window.location.pathname.split('/').slice(0, -1).join('/');
+                    window.location.href = directory.concat("/check.html?token=" + data.id);
+                }
+            });
         }
     });
 </script>
 
+<script>
+    function validate() {
+        const name = $("#nameInput").val();
+        const surname = $("#surnameInput").val();
+        const email = $("#emailInput").val();
+        const telephhone = $("#telephoneInput").val();
+        const apartmentId = $("input[name='radio']:checked").val();
+        let isValid = true;
+
+        // NAME
+        if (name.length < 2 || name.length > 20) {
+            $("#invalidName").css("visibility", "visible");
+            isValid = false;
+        } else {
+            $("#invalidName").css("visibility", "hidden");
+        }
+
+        //SURNAME
+        if (surname.length < 2 || surname.length > 20) {
+            $("#invalidSurname").css("visibility", "visible");
+            isValid = false;
+        } else {
+            $("#invalidSurname").css("visibility", "hidden");
+        }
+
+        //EMAIL
+        const regexMail = new RegExp("^[\\da-zA-z]*@[\\da-zA-z]*.[a-zA-z]{2,3}$");
+        if (!regexMail.test(email)) {
+            $("#invalidEmail").css("visibility", "visible");
+            isValid = false;
+        } else {
+            $("#invalidEmail").css("visibility", "hidden");
+        }
+
+        //TELEPHONE
+        const regexPhone = new RegExp("^[\\d]{9}$");
+        if (!regexPhone.test(telephhone)) {
+            $("#invalidTelephone").css("visibility", "visible");
+            isValid = false;
+        } else {
+            $("#invalidTelephone").css("visibility", "hidden");
+        }
+
+        //APARTMENT
+        if (!apartmentId) {
+            $("#invalidApartment").css("visibility", "visible");
+            isValid = false;
+        } else {
+            $("#invalidApartment").css("visibility", "hidden");
+        }
+
+        return isValid;
+    }
+</script>
+
 </body>
 <footer>
-        <p id="footerP">Hotel Testowy <br/>
-            Ul. Testowa 215, 35-005 Rzeszów <br/>
-            Telefon: 210-210-210 <br/>
-            E-mail: <a href="mailto:hotel-testowy@test.pl">hotel-testowy@test.pl</a></p>
-        </footer>
+    <p id="footerP">Hotel Testowy <br/>
+        Ul. Testowa 215, 35-005 Rzeszów <br/>
+        Telefon: 210-210-210 <br/>
+        E-mail: <a href="mailto:hotel-testowy@test.pl">hotel-testowy@test.pl</a></p>
+</footer>
 
 </html>
