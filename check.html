@@ -161,9 +161,9 @@
                 break;
         }
 
-        $("#reservation-details").append('<br/><button class="btn btn-primary" id="btn-back">Powrót</button>');
+        $("#reservation-details").append('</br><button class="btn btn-primary" id="btn-back">Powrót</button></br>');
         if (data.status !== "CANCELLED" && data.status !== "EXPIRED") {
-            $("#reservation-details").append('<br/><button class="btn btn-danger" id="btn-cancel">Anuluj rezerwację</button>');
+            $("#reservation-details").append('</br><button class="btn btn-danger" id="btn-cancel">Anuluj rezerwację</button>');
         }
 
         $(document).on('click', '#btn-cancel', function () {
