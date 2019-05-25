@@ -264,16 +264,16 @@
             <div class="col-md-7">
                 <h2 class="featurette-heading">Zarezerwuj już dziś swój pokój!</h2>
                 <h2>Najlepsze wakacje życia czekają!</h2>
-                    <script type='text/javascript'>
-                        $(function () {
-                            $('.input-daterange').datepicker({
-                                autoclose: true,
-                                format: 'yyyy-mm-dd'
-                            });
+                <script type='text/javascript'>
+                    $(function () {
+                        $('.input-daterange').datepicker({
+                            autoclose: true,
+                            format: 'yyyy-mm-dd'
                         });
+                    });
 
-                    </script>
-                    </br>
+                </script>
+                </br>
                 <div class="input-daterange input-group" id="datepicker">
                     <input type="text" class="input-sm form-control" id="datepickerFrom" placeholder="Data przyjazdu"/>
                     <span class="input-group-addon">do</span>
@@ -311,9 +311,10 @@
                         </div>
                     </div>
                 </form>
-            </br>
+                </br>
                 <button class="btn btn-primary" id="btn-check">Sprawdź status</button>
-                <p id="validationFailed" style="color: brown; visibility: hidden">Numer rezerwacji nieprawdłowy</p>
+                <p id="validationFailed" class="invalid-value">Numer rezerwacji nieprawdłowy</p>
+                <p id="noReservation" class="invalid-value">Brak rezerwacji o podanym numerze</p>
             </div>
             <div class=" col-md-5 order-md-1">
                 <img class="featurette-image img-fluid mx-auto" src="src/img/reception.jpg"
@@ -352,11 +353,11 @@
     // RESERVATION BUTTON
     $(document).on('click', '#btn-available', function () {
         var startDate = $('#datepickerFrom').val();
-        var endDate =   $('#datepickerTo').val();
+        var endDate = $('#datepickerTo').val();
 
         $.ajax({
             type: 'GET',
-            url: 'http://localhost:8080/apartments?filter={"date_start":"'+ startDate +'","date_end":"'+ endDate +'"}',
+            url: 'http://localhost:8080/apartments?filter={"date_start":"' + startDate + '","date_end":"' + endDate + '"}',
             dataType: "json",
             success: function (data) {
                 sessionStorage.setItem("startDate", startDate);
@@ -368,16 +369,30 @@
     });
 
     function isNumeric(value) {
-    return /^-{0,1}\d+$/.test(value);
-}
+        return /^-{0,1}\d+$/.test(value);
+    }
 
     // CHECK BUTTON
     $(document).on('click', '#btn-check', function () {
+        document.getElementById('noReservation').style.visibility = "hidden";
         var token = document.getElementById("reservationToken").value;
         if (/^\d+$/.test(token) || token === "") {
             document.getElementById('validationFailed').style.visibility = "visible";
         } else {
-            window.location.href = directory.concat("/check.html?token=" + token);
+            document.getElementById('validationFailed').style.visibility = "hidden";
+
+            $.ajax({
+                type: 'GET',
+                url: "http://localhost:8080/reservations/" + token,
+                dataType: "json",
+                success: function (data) {
+                    sessionStorage.setItem("reservationDetails", JSON.stringify(data));
+                    window.location.href = directory.concat("/check.html");
+                },
+                error: function (error) {
+                    document.getElementById('noReservation').style.visibility = "visible";
+                }
+            });
         }
     });
 </script>
@@ -388,9 +403,9 @@
         src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.min.js"></script>
 </body>
 <footer>
-        <p id="footerP">Hotel Testowy <br/>
-            Ul. Testowa 215, 35-005 Rzeszów <br/>
-            Telefon: 210-210-210 <br/>
-            E-mail: <a href="mailto:hotel-testowy@test.pl">hotel-testowy@test.pl</a></p>
-        </footer>
+    <p id="footerP">Hotel Testowy <br/>
+        Ul. Testowa 215, 35-005 Rzeszów <br/>
+        Telefon: 210-210-210 <br/>
+        E-mail: <a href="mailto:hotel-testowy@test.pl">hotel-testowy@test.pl</a></p>
+</footer>
 </html>

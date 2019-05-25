@@ -124,15 +124,12 @@
     </main>
 
     <script>
-        let searchParams = new URLSearchParams(window.location.search);
-        console.log("http://localhost:8080/reservations/" + searchParams.get('token'));
-
+        if(!sessionStorage.getItem("reservationDetails")){
+            var directory = window.location.pathname.split('/').slice(0, -1).join('/');
+            window.location.href = directory.concat("/index.html");
+        }
+        const data = JSON.parse(sessionStorage.getItem("reservationDetails"));
         $(document).ready(function () {
-            $.ajax({
-                type: 'GET',
-                url: "http://localhost:8080/reservations/" + searchParams.get('token'),
-                dataType: "json",
-                success: function (data) {
                     $("#reservation-details").append("<p>Numer rezerwacji: " + data.id + "</p>");
                     $("#reservation-details").append("<p>Imię: " + data.user.first_name + "</p>");
                     $("#reservation-details").append("<p>Nazwisko: " + data.user.last_name + "</p>");
@@ -175,12 +172,10 @@
                     $(document).on('click', '#btn-back', function () {
                         window.location.href = "index.html";
                     });
-                }
-            });
-        });
+                });
     </script>
-    <script>
 
+    <script>
         $(document).on('click', '#btn-cancel', function () {
             $("#dialog-confirm").dialog({
                 resizable: false,

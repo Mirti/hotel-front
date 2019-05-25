@@ -236,8 +236,9 @@ class="featurette-divider">
                     "telephone": telephhone,
                 },
                 success: function (data) {
-                    const directory = window.location.pathname.split('/').slice(0, -1).join('/');
-                    window.location.href = directory.concat("/check.html?token=" + data.id);
+                    sessionStorage.setItem("reservationDetails", JSON.stringify(data));
+                    var directory = window.location.pathname.split('/').slice(0, -1).join('/');
+                    window.location.href = directory.concat("/check.html");
                 }
             });
         }
