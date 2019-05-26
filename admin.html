@@ -43,7 +43,7 @@
           createTable();
         },
         error: function () {
-          alert('Failed to fetch reservations');
+          alert('Wystąpił problem przy pobieraniu listy rezerwacji');
         }
       });
     })
@@ -56,10 +56,8 @@
           `<td>
           <button class='btn btn-danger' onclick='setStatus(\"${reservations[i].id}\", \"${i}\")'>Zastosuj</button>
             <select id='statusCb${reservations[i].id}'>  
-              <option value="NEW">Odnów</option>
-              <option value="CANCELLED">Anuluj</option>
+              <option value="CANCELLED">Anuluj rezerwację</option>
               <option value="PAID">Opłacono</option>
-              <option value="EXPIRED">Czas wpłaty upłyną</option>
             </select> 
         </td>`);
 
@@ -87,17 +85,18 @@
     function setStatus(id, index) {
       var token = JSON.parse(sessionStorage.getItem("token"));
       var status = $(`#statusCb${id}`).val();
+      var data0 = { "status": status };
+      var json = JSON.stringify(data0);
+
       $.ajax({
         type: 'PUT',
         url: `http://localhost:8080/reservations/${id}`,
         contentType: "application/json",
         dataType: "json",
-        data: {
-          "status": status
-        },
+        data: json,
         headers: { "Authorization": "Bearer " + token.token },
         success: function (data) {
-          alert('Status set');
+          alert('Status zmieniony');
           var reservations = JSON.parse(sessionStorage.getItem("reservations"));
 
           reservations[index].status = status;
@@ -105,11 +104,11 @@
           location.reload();
         },
         error: function () {
-          alert('Failed to set status');
+          alert('Zmiana statusu nieudana');
         }
       });
 
-    }
+    
 
     $(document).on('click', '#logout', function () {
       sessionStorage.removeItem("token");
