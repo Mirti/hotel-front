@@ -1,5 +1,6 @@
 $(document).ready(function () {
     const availableRooms = JSON.parse(sessionStorage.getItem("availableRooms"));
+    const days = Math.round(new Date(sessionStorage.getItem("endDate")) -  new Date(sessionStorage.getItem("startDate"))) / 86400000;
     for (i = 0; i < availableRooms.length; i++) {
         $("#room-table-body").append("<tr id = tr" + availableRooms[i].id + ">");
         $("#tr" + availableRooms[i].id).append("<td><input type='radio' name=radio value='" + availableRooms[i].id + "'></td>");
@@ -19,6 +20,7 @@ $(document).ready(function () {
         $("#tr" + availableRooms[i].id).append("<td>" + availableRooms[i].rooms_count + "</td>");
         $("#tr" + availableRooms[i].id).append("<td>" + availableRooms[i].beds_count + "</td>");
         $("#tr" + availableRooms[i].id).append("<td>" + availableRooms[i].price + "</td>");
+        $("#tr" + availableRooms[i].id).append("<td>" + availableRooms[i].price * days + "</td>");
         $("#tr" + availableRooms[i].id).append("</tr>");
     }
     $('#fromInput').val(sessionStorage.getItem("startDate"));

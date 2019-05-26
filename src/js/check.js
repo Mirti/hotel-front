@@ -3,6 +3,7 @@ if (!sessionStorage.getItem("reservationDetails")) {
     window.location.href = directory.concat("/index.html");
 }
 let data = JSON.parse(sessionStorage.getItem("reservationDetails"));
+const days = Math.round(new Date(sessionStorage.getItem("endDate")) -  new Date(sessionStorage.getItem("startDate"))) / 86400000;
 $(document).ready(function () {
     $("#reservation-details").append("<p>Numer rezerwacji: " + data.id + "</p>");
     $("#reservation-details").append("<p>Imię: " + data.user.first_name + "</p>");
@@ -11,6 +12,7 @@ $(document).ready(function () {
     $("#reservation-details").append("<p>Numer telefonu: " + data.user.telephone + "</p>");
     $("#reservation-details").append("<p>Data przyjazdu: " + data.date_start + "</p>");
     $("#reservation-details").append("<p>Data wyjazdu: " + data.date_end + "</p>");
+    $("#reservation-details").append("<p>Łączna cena: " + data.price * days + "</p>");
 
     switch (data.roomClass) {
         case 1:
@@ -30,6 +32,11 @@ $(document).ready(function () {
             break;
         case "NEW":
             $("#reservation-details").append("<p>Status: Oczekiwanie na płatność</p>");
+            $("#reservation-details").append(`<p>Prosimy o wpłatę łącznej kwoty na konto:
+            <br/><br/>Hotel Testowy  <br/>
+                 Ul. Testowa 215, 35-005 Rzeszów <br/>
+                 Numer konta: 00 0000 0000 0000 0000 0000 0000<br/>
+                 W tytule prosimy podać numer rezerwacji</p>`);
             break;
         case "CANCELLED":
             $("#reservation-details").append("<p>Status: Anulowana</p>");
