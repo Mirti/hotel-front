@@ -37,6 +37,7 @@
         type: 'GET',
         url: 'http://localhost:8080/reservations',
         dataType: "json",
+        headers: { "Authorization": "Bearer " + token.token },
         success: function (data) {
           sessionStorage.setItem("reservations", JSON.stringify(data));
           createTable();
