@@ -9,7 +9,7 @@
     <link rel="icon" href="src/img/icon.PNG">
 
     <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker3.min.css">
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker3.min.css">
 
     <title>Hotel Reservation System</title>
 
@@ -25,398 +25,298 @@
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="dist/js/bootstrap.min.js"></script>
+    <script src="src/js/index.js"></script>
 
 </head>
 
 <body>
 
-    <header>
-        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-            <a class="navbar-brand" href="#">Hotel Reservation System</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+<header>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <a class="navbar-brand" href="#">Hotel Reservation System</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
                 aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarCollapse">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Strona główna <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#reserve">Zarezerwuj</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#check">Sprawdź stan rezerwacji</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#contact">Kontakt</a>
-                    </li>
-                </ul>
-                <!-- <form class="form-inline mt-2 mt-md-0">
-                <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-              </form> -->
-            </div>
-        </nav>
-    </header>
-
-    <main role="main">
-
-        <div id="myCarousel" class="carousel slide" data-ride="carousel">
-            <ol class="carousel-indicators">
-                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                <li data-target="#myCarousel" data-slide-to="1"></li>
-                <li data-target="#myCarousel" data-slide-to="2"></li>
-            </ol>
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img class="first-slide" src="src/img/carousel1.jpg" alt="First slide">
-                    <div class="container">
-                        <div class="carousel-caption text-left">
-                            <h1 class="carouselText">Luksusowe pokoje</h1>
-                            <p class="carouselText">W naszym hotelu znajdziecie Państwo luksusowe pokoje, które zadowolą
-                                nawet
-                                najbardziej wymagających
-                                klientów</p>
-                            <p><a class="btn btn-lg btn-primary" href="#reserve" role="button">Zarezerwuj</a></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <img class="second-slide" src="src/img/carousel2.jpg" alt="Second slide">
-                    <div class="container">
-                        <div class="carousel-caption">
-                            <h1 class="carouselText">Konkurencyjne ceny</h1>
-                            <p class="carouselText">Ceny naszych apartamentów są wyjatkowo atrakcyjne. Ceny rozpoczynają
-                                się
-                                od
-                                80zł/noc</p>
-                            <p><a class="btn btn-lg btn-primary" href="#reserve" role="button">Zarezerwuj</a></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <img class="third-slide" src="src/img/carousel3.jpg" alt="Third slide">
-                    <div class="container">
-                        <div class="carousel-caption text-right">
-                            <h1 class="carouselText">Sprawdź stan swojej rezerwacji</h1>
-                            <p><a class="btn btn-lg btn-primary" href="#reserve" role="button">Sprawdź</a></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-            </a>
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Strona główna <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#reserve">Zarezerwuj</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#check">Sprawdź stan rezerwacji</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#contact">Kontakt</a>
+                </li>
+            </ul>
         </div>
+    </nav>
+</header>
 
+<main role="main">
 
-        <!-- Marketing messaging and featurettes
-      ================================================== -->
-        <!-- Wrap the rest of the page in another container to center all the content. -->
-
-        <div class="container marketing">
-
-            <!-- Three columns of text below the carousel -->
-            <div class="row">
-                <div class="col-lg-4">
-                    <img class="rounded-circle" src="src/img/info.png" alt="Info" width="140" height="140">
-                    <h2>O hotelu</h2>
-                    <p>Dowiedz się więcej o naszym hotelu i o udogodnieniach, które czekają na naszych gości. W
-                        przypadku
-                        dodatkowych pytań bardzo prosimy o kontakt</p>
-                    <p><a class="btn btn-secondary" href="#about" role="button">Szczegóły &raquo;</a></p>
-                </div><!-- /.col-lg-4 -->
-                <div class="col-lg-4">
-                    <img class="rounded-circle" src="src/img/book.png" alt="Booking" width="140" height="140">
-                    <h2>Zarezerwuj</h2>
-                    <p>Już dziś zarezerwuj nocleg w jednym z naszych komfortowych i luksusowych apartamentów. </p>
-                    <p><a class="btn btn-secondary" href="#reserve" role="button">Szczegóły &raquo;</a></p>
-                </div><!-- /.col-lg-4 -->
-                <div class="col-lg-4">
-                    <img class="rounded-circle" src="src/img/check.png" alt="Check" width="140" height="140">
-                    <h2>Status rezerwacji</h2>
-                    <p>Sprawdź obecny stan swojej rezerwacji. Dzięki naszemu systemowi, poprzez podanie kilku danych
-                        możesz
-                        w
-                        prosty sposób sprawdzić czy Twoja rezerwacja została potwierdzona</p>
-                    <p><a class="btn btn-secondary" href="#check" role="button">Szczegóły &raquo;</a></p>
-                </div><!-- /.col-lg-4 -->
-            </div><!-- /.row -->
-
-
-            <!-- START THE FEATURETTES -->
-
-            <hr class="featurette-divider">
-
-            <div class="row featurette">
-                <div class="col-md-7" id="about">
-                    <h2 class="featurette-heading">O Hotelu:</h2>
-                    <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis
-                        euismod
-                        semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus
-                        ac
-                        cursus
-                        commodo.
-                        <ul>
-                            <li>Donec ullamcorper nulla</li>
-                            <li>Donec ullamcorper nulla</li>
-                            <li>Donec ullamcorper nulla</li>
-                            <li>Donec ullamcorper nulla</li>
-                            <li>Donec ullamcorper nulla</li>
-                            <li>Donec ullamcorper nulla</li>
-                            <li>Donec ullamcorper nulla</li>
-                            <li>Donec ullamcorper nulla</li>
-                            <li>Donec ullamcorper nulla</li>
-                            <li>Donec ullamcorper nulla</li>
-                            <li>Donec ullamcorper nulla</li>
-                        </ul>
-                    </p>
-                </div>
-                <div class="col-md-5">
-                    <img class="featurette-image img-fluid mx-auto" src="src/img/luxury-room.jpg"
-                        alt="Generic placeholder image">
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+            <li data-target="#myCarousel" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img class="first-slide" src="src/img/carousel1.jpg" alt="First slide">
+                <div class="container">
+                    <div class="carousel-caption text-left">
+                        <h1 class="carouselText">Luksusowe pokoje</h1>
+                        <p class="carouselText">W naszym hotelu znajdziecie Państwo luksusowe pokoje, które zadowolą
+                            nawet
+                            najbardziej wymagających
+                            klientów</p>
+                        <p><a class="btn btn-lg btn-primary" href="#reserve" role="button">Zarezerwuj</a></p>
+                    </div>
                 </div>
             </div>
-            </hr class="featurette-divider">
-
-            <hr class="featurette-divider">
-            <div class="row featurette">
-                <div class="col-md-7 order-md-2">
-                    <h2 class="featurette-heading">Apartament luksusowy *****</h2>
-                    <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis
-                        euismod
-                        semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus
-                        ac
-                        cursus
-                        commodo.
-                        <ul>
-                            <li>Donec ullamcorper nulla</li>
-                            <li>Donec ullamcorper nulla</li>
-                            <li>Donec ullamcorper nulla</li>
-                            <li>Donec ullamcorper nulla</li>
-                        </ul>
-                    </p>
-                </div>
-                <div class="col-md-5 order-md-1">
-                    <img class="featurette-image img-fluid mx-auto" src="src/img/luxury-room.jpg"
-                        alt="Generic placeholder image">
+            <div class="carousel-item">
+                <img class="second-slide" src="src/img/carousel2.jpg" alt="Second slide">
+                <div class="container">
+                    <div class="carousel-caption">
+                        <h1 class="carouselText">Konkurencyjne ceny</h1>
+                        <p class="carouselText">Ceny naszych apartamentów są wyjatkowo atrakcyjne. Ceny rozpoczynają
+                            się
+                            od
+                            80zł/noc</p>
+                        <p><a class="btn btn-lg btn-primary" href="#reserve" role="button">Zarezerwuj</a></p>
+                    </div>
                 </div>
             </div>
-
-            <div class="row featurette">
-                <div class="col-md-7">
-                    <h2 class="featurette-heading">Apartament standardowy ****</h2>
-                    <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis
-                        euismod
-                        semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus
-                        ac
-                        cursus
-                        commodo.
-                        <ul>
-                            <li>Donec ullamcorper nulla</li>
-                            <li>Donec ullamcorper nulla</li>
-                            <li>Donec ullamcorper nulla</li>
-                            <li>Donec ullamcorper nulla</li>
-                        </ul>
-                    </p>
-                </div>
-                <div class="col-md-5">
-                    <img class="featurette-image img-fluid mx-auto" src="src/img/standard-room.jpg"
-                        alt="Generic placeholder image">
+            <div class="carousel-item">
+                <img class="third-slide" src="src/img/carousel3.jpg" alt="Third slide">
+                <div class="container">
+                    <div class="carousel-caption text-right">
+                        <h1 class="carouselText">Sprawdź stan swojej rezerwacji</h1>
+                        <p><a class="btn btn-lg btn-primary" href="#reserve" role="button">Sprawdź</a></p>
+                    </div>
                 </div>
             </div>
+        </div>
+        <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
 
-            <div class="row featurette">
-                <div class="col-md-7 order-md-2">
-                    <h2 class="featurette-heading">Apartament ekonomiczny ***</h2>
-                    <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis
-                        euismod
-                        semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus
-                        ac
-                        cursus
-                        commodo.
-                        <ul>
-                            <li>Donec ullamcorper nulla</li>
-                            <li>Donec ullamcorper nulla</li>
-                            <li>Donec ullamcorper nulla</li>
-                            <li>Donec ullamcorper nulla</li>
-                        </ul>
-                    </p>
-                </div>
-                <div class="col-md-5 order-md-1">
-                    <img class="featurette-image img-fluid mx-auto" src="src/img/economic-room.jpg"
-                        alt="Generic placeholder image">
-                </div>
-            </div>
+    <div class="container marketing">
 
-            </hr class="featurette-divider">
+        <!-- Three columns of text below the carousel -->
+        <div class="row">
+            <div class="col-lg-4">
+                <img class="rounded-circle" src="src/img/info.png" alt="Info" width="140" height="140">
+                <h2>O hotelu</h2>
+                <p>Dowiedz się więcej o naszym hotelu i o udogodnieniach, które czekają na naszych gości. W
+                    przypadku
+                    dodatkowych pytań bardzo prosimy o kontakt</p>
+                <p><a class="btn btn-secondary" href="#about" role="button">Szczegóły &raquo;</a></p>
+            </div><!-- /.col-lg-4 -->
+            <div class="col-lg-4">
+                <img class="rounded-circle" src="src/img/book.png" alt="Booking" width="140" height="140">
+                <h2>Zarezerwuj</h2>
+                <p>Już dziś zarezerwuj nocleg w jednym z naszych komfortowych i luksusowych apartamentów. </p>
+                <p><a class="btn btn-secondary" href="#reserve" role="button">Szczegóły &raquo;</a></p>
+            </div><!-- /.col-lg-4 -->
+            <div class="col-lg-4">
+                <img class="rounded-circle" src="src/img/check.png" alt="Check" width="140" height="140">
+                <h2>Status rezerwacji</h2>
+                <p>Sprawdź obecny stan swojej rezerwacji. Dzięki naszemu systemowi, poprzez podanie kilku danych
+                    możesz
+                    w
+                    prosty sposób sprawdzić czy Twoja rezerwacja została potwierdzona</p>
+                <p><a class="btn btn-secondary" href="#check" role="button">Szczegóły &raquo;</a></p>
+            </div><!-- /.col-lg-4 -->
+        </div><!-- /.row -->
 
 
-        </div><!-- /.container -->
-
-        <!-- RESERVATION -->
+        <!-- START THE FEATURETTES -->
 
         <hr class="featurette-divider">
 
+        <div class="row featurette">
+            <div class="col-md-7" id="about">
+                <h2 class="featurette-heading">O Hotelu:</h2>
+                <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis
+                    euismod
+                    semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus
+                    ac
+                    cursus
+                    commodo.
+                <ul>
+                    <li>Donec ullamcorper nulla</li>
+                    <li>Donec ullamcorper nulla</li>
+                    <li>Donec ullamcorper nulla</li>
+                    <li>Donec ullamcorper nulla</li>
+                    <li>Donec ullamcorper nulla</li>
+                    <li>Donec ullamcorper nulla</li>
+                    <li>Donec ullamcorper nulla</li>
+                    <li>Donec ullamcorper nulla</li>
+                    <li>Donec ullamcorper nulla</li>
+                    <li>Donec ullamcorper nulla</li>
+                    <li>Donec ullamcorper nulla</li>
+                </ul>
+                </p>
+            </div>
+            <div class="col-md-5">
+                <img class="featurette-image img-fluid mx-auto" src="src/img/luxury-room.jpg"
+                     alt="Generic placeholder image">
+            </div>
+        </div>
+        </hr class="featurette-divider">
 
-        <div class="container" id="reserve">
+        <hr class="featurette-divider">
+        <div class="row featurette">
+            <div class="col-md-7 order-md-2">
+                <h2 class="featurette-heading">Apartament luksusowy *****</h2>
+                <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis
+                    euismod
+                    semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus
+                    ac
+                    cursus
+                    commodo.
+                <ul>
+                    <li>Donec ullamcorper nulla</li>
+                    <li>Donec ullamcorper nulla</li>
+                    <li>Donec ullamcorper nulla</li>
+                    <li>Donec ullamcorper nulla</li>
+                </ul>
+                </p>
+            </div>
+            <div class="col-md-5 order-md-1">
+                <img class="featurette-image img-fluid mx-auto" src="src/img/luxury-room.jpg"
+                     alt="Generic placeholder image">
+            </div>
+        </div>
 
-            <div class="row featurette">
-                <div class="col-md-7 ">
-                    <h2 class="featurette-heading">Zarezerwuj już dziś swój pokój!</h2>
-                    <h2>Najlepsze wakacje życia czekają!</h2>
-                    <script type='text/javascript'>
-                        $(function () {
-                            $('.input-daterange').datepicker({
-                                autoclose: true,
-                                format: 'yyyy-mm-dd'
-                            });
-                        });
+        <div class="row featurette">
+            <div class="col-md-7">
+                <h2 class="featurette-heading">Apartament standardowy ****</h2>
+                <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis
+                    euismod
+                    semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus
+                    ac
+                    cursus
+                    commodo.
+                <ul>
+                    <li>Donec ullamcorper nulla</li>
+                    <li>Donec ullamcorper nulla</li>
+                    <li>Donec ullamcorper nulla</li>
+                    <li>Donec ullamcorper nulla</li>
+                </ul>
+                </p>
+            </div>
+            <div class="col-md-5">
+                <img class="featurette-image img-fluid mx-auto" src="src/img/standard-room.jpg"
+                     alt="Generic placeholder image">
+            </div>
+        </div>
 
-                    </script>
-                    </br>
-                    <div class="input-daterange input-group" id="datepicker">
-                        <input type="text" class="input-sm form-control" id="datepickerFrom"
-                            placeholder="Data przyjazdu" />
-                        <span class="input-group-addon">do</span>
-                        <input type="text" class="input-sm form-control" id="datepickerTo" placeholder="Data wyjazdu" />
-                    </div>
-                    </br>
-                    <div style="justify-items: center">
-                        <button class="btn btn-primary" id="btn-available">Sprawdź dostępność</button>
-                    </div>
+        <div class="row featurette">
+            <div class="col-md-7 order-md-2">
+                <h2 class="featurette-heading">Apartament ekonomiczny ***</h2>
+                <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis
+                    euismod
+                    semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus
+                    ac
+                    cursus
+                    commodo.
+                <ul>
+                    <li>Donec ullamcorper nulla</li>
+                    <li>Donec ullamcorper nulla</li>
+                    <li>Donec ullamcorper nulla</li>
+                    <li>Donec ullamcorper nulla</li>
+                </ul>
+                </p>
+            </div>
+            <div class="col-md-5 order-md-1">
+                <img class="featurette-image img-fluid mx-auto" src="src/img/economic-room.jpg"
+                     alt="Generic placeholder image">
+            </div>
+        </div>
+
+        </hr class="featurette-divider">
+
+
+    </div><!-- /.container -->
+
+    <!-- RESERVATION -->
+
+    <hr class="featurette-divider">
+
+
+    <div class="container" id="reserve">
+
+        <div class="row featurette">
+            <div class="col-md-7 ">
+                <h2 class="featurette-heading">Zarezerwuj już dziś swój pokój!</h2>
+                <h2>Najlepsze wakacje życia czekają!</h2>
+                </br>
+                <div class="input-daterange input-group" id="datepicker">
+                    <input type="text" class="input-sm form-control" id="datepickerFrom"
+                           placeholder="Data przyjazdu"/>
+                    <span class="input-group-addon">do</span>
+                    <input type="text" class="input-sm form-control" id="datepickerTo" placeholder="Data wyjazdu"/>
                 </div>
-                <div class="col-md-5 order-md-1">
-                    <img class="featurette-image img-fluid mx-auto" src="src/img/happy-hotel.jpg"
-                        alt="Generic placeholder image">
+                </br>
+                <div style="justify-items: center">
+                    <button class="btn btn-primary" id="btn-available">Sprawdź dostępność</button>
                 </div>
             </div>
-
-            </hr class=" featurette-divider">
-            <!-- CHECK RESERVATION STATUS -->
-            <hr class="featurette-divider">
-            <div class="container" id="check">
-
-                <div class="row featurette">
-                    <div class="col-md-7 order-md-2">
-                        <h2 class="featurette-heading">Sprawdź status rezerwacji</h2>
-                        </br>
-                        <form>
-                            <div class="input-group">
-                                <div>
-                                    <h3>Numer rezerwacji:</h3>
-                                    <input class="form-control form-control" type="text" id="reservationToken"
-                                        placeholder="Numer rezerwacji">
-                                </div>
-                    </div>
-                    </form>
-                    </br>
-                    <button class="btn btn-primary" id="btn-check">Sprawdź status</button>
-                    <p id="validationFailed" class="invalid-value">Numer rezerwacji nieprawdłowy</p>
-                    <p id="noReservation" class="invalid-value">Brak rezerwacji o podanym numerze</p>
-                </div>
-                <div class=" col-md-5 order-md-1">
-                    <img class="featurette-image img-fluid mx-auto" src="src/img/reception.jpg"
-                        alt="Generic placeholder image">
-                </div>
-                <div id="to-top"><a href="#"><img src="src/img/arrow-up.png" width="42" height="42"></a></div>
+            <div class="col-md-5 order-md-1">
+                <img class="featurette-image img-fluid mx-auto" src="src/img/happy-hotel.jpg"
+                     alt="Generic placeholder image">
             </div>
-            <hr class="featurette-divider">
-    </main>
+        </div>
+    </div>
 
+    </hr class=" featurette-divider">
+    <!-- CHECK RESERVATION STATUS -->
+    <hr class="featurette-divider">
+    <div class="container" id="check">
 
-    <script>
-        // floating return
+        <div class="row featurette">
+            <div class="col-md-7 order-md-2">
+                <h2 class="featurette-heading">Sprawdź status rezerwacji</h2>
+                </br>
+                <form>
+                    <div class="input-group">
+                        <div>
+                            <h3>Numer rezerwacji:</h3>
+                            <input class="form-control form-control" type="text" id="reservationToken"
+                                   placeholder="Numer rezerwacji">
+                        </div>
+                    </div>
+                </form>
+                </br>
+                <button class="btn btn-primary" id="btn-check">Sprawdź status</button>
+                <p id="validationFailed" class="invalid-value">Numer rezerwacji nieprawdłowy</p>
+                <p id="noReservation" class="invalid-value">Brak rezerwacji o podanym numerze</p>
+            </div>
+            <div class=" col-md-5 order-md-1">
+                <img class="featurette-image img-fluid mx-auto" src="src/img/reception.jpg"
+                     alt="Generic placeholder image">
+            </div>
+            <div id="to-top"><a href="#"><img src="src/img/arrow-up.png" width="42" height="42"></a></div>
+        </div>
+        <hr class="featurette-divider">
+    </div>
+</main>
 
-        function isVisible(elment) {
-            var vpH = $(window).height(), // Viewport Height
-                st = $(window).scrollTop(), // Scroll Top
-                y = $(elment).offset().top;
-
-            return y <= (vpH + st);
-        } $(window).scroll(function () {
-            if ($(this).scrollTop() == 0) {
-                $('#to-top').fadeOut();
-            } else if (isVisible($('footer'))) {
-                $('#to-top').css('position', 'absolute');
-            } else {
-                $('#to-top').css('position', 'fixed');
-                $('#to-top').fadeIn();
-            }
-        });
-        var directory = window.location.pathname.split('/').slice(0, -1).join('/');
-
-
-        // RESERVATION BUTTON
-        $(document).on('click', '#btn-available', function () {
-            var startDate = $('#datepickerFrom').val();
-            var endDate = $('#datepickerTo').val();
-
-            var today = new Date();
-            var dd = String(today.getDate()).padStart(2, '0');
-            var mm = String(today.getMonth() + 1).padStart(2, '0');
-            var yyyy = today.getFullYear();
-
-            today = new Date(mm + '/' + dd + '/' + yyyy);
-            var start = new Date(startDate);
-            var end = new Date(endDate);
-
-            if (Number(today) > Number(start) || Number(today) > Number(endDate)) {
-                alert("Data wyjazdu lub data przyjazdu nieprawidłowa");
-            } else {
-                 $.ajax({
-                type: 'GET',
-                url: 'http://localhost:8080/apartments?filter={"date_start":"' + startDate + '","date_end":"' + endDate + '"}',
-                dataType: "json",
-                success: function (data) {
-                    sessionStorage.setItem("startDate", startDate);
-                    sessionStorage.setItem("endDate", endDate);
-                    sessionStorage.setItem("availableRooms", JSON.stringify(data));
-                    window.location.href = directory.concat("/reservation.html");
-                },
-            });
-            }
-        });
-
-
-        function isNumeric(value) {
-            return /^-{0,1}\d+$/.test(value);
-        }
-
-        // CHECK BUTTON
-        $(document).on('click', '#btn-check', function () {
-            document.getElementById('noReservation').style.visibility = "hidden";
-            var token = document.getElementById("reservationToken").value;
-            if (/^\d+$/.test(token) || token === "") {
-                document.getElementById('validationFailed').style.visibility = "visible";
-            } else {
-                document.getElementById('validationFailed').style.visibility = "hidden";
-
-                $.ajax({
-                    type: 'GET',
-                    url: "http://localhost:8080/reservations/" + token,
-                    dataType: "json",
-                    success: function (data) {
-                        sessionStorage.setItem("reservationDetails", JSON.stringify(data));
-                        window.location.href = directory.concat("/check.html");
-                    },
-                    error: function (error) {
-                        document.getElementById('noReservation').style.visibility = "visible";
-                    }
-                });
-            }
-        });
-    </script>
-
-
-    <!-- Libraries -->
-    <script type='text/javascript'
+<!-- Libraries -->
+<script type='text/javascript'
         src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.min.js"></script>
 </body>
 <footer>
@@ -425,9 +325,9 @@
         text-align: center;
         padding: 10px;">
         <img src="src/img/testtest.png" height="180rem" width="400rem">
-        <p id="footerP">Hotel Testowy <br />
-            Ul. Testowa 215, 35-005 Rzeszów <br />
-            Telefon: 210-210-210 <br />
+        <p id="footerP">Hotel Testowy <br/>
+            Ul. Testowa 215, 35-005 Rzeszów <br/>
+            Telefon: 210-210-210 <br/>
             E-mail: <a href="mailto:hotel-testowy@test.pl">hotel-testowy@test.pl</a></p>
 </footer>
 
