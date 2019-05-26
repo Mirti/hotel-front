@@ -27,16 +27,35 @@
   <script src="dist/js/bootstrap.min.js"></script>
   <script>
     $(document).ready(function () {
+      const token = JSON.parse(sessionStorage.getItem("token"));
+
+      if (!token) {
+        window.location.href = "login.html";
+      }
+
+      sessionStorage.removeItem("reservations");
+      $.ajax({
+        type: 'GET',
+        url: 'http://localhost:8080/reservations',
+        dataType: "json",
+        headers: { "Authorization": "Bearer " + token.token },
+        success: function (data) {
+          sessionStorage.setItem("reservations", JSON.stringify(data));
+        },
+        error: function () {
+                        alert('Failed to fetch reservations');
+                    }
+      });
       createTable();
     })
-      function createTable() {
-        var reservations = JSON.parse(sessionStorage.getItem("reservations"));
-        for (i = 0; i < reservations.length; i++) {
-          $("#room-table-body").append("<tr id = tr" + reservations[i].id + ">");
+    function createTable() {
+      var reservations = JSON.parse(sessionStorage.getItem("reservations"));
+      for (i = 0; i < reservations.length; i++) {
+        $("#room-table-body").append("<tr id = tr" + reservations[i].id + ">");
 
-          $("#tr" + reservations[i].id).append(
-            `<td>
-          <button class='btn btn-danger' id='btn-rem' onclick='setStatus(${reservations[i].id}, ${i});'>Zastosuj</button>
+        $("#tr" + reservations[i].id).append(
+          `<td>
+          <button class='btn btn-danger' onclick='setStatus(\"${reservations[i].id}\", \"${i}\")'>Zastosuj</button>
             <select id='statusCb${reservations[i].id}'>  
               <option value="NEW">Odnów</option>
               <option value="CANCELLED">Anuluj</option>
@@ -45,30 +64,30 @@
             </select> 
         </td>`);
 
-          $("#tr" + reservations[i].id).append("<td>" + reservations[i].id + "</td>");
-          $("#tr" + reservations[i].id).append("<td>" + reservations[i].date_start + "</td>");
-          $("#tr" + reservations[i].id).append("<td>" + reservations[i].date_end + "</td>");
-          $("#tr" + reservations[i].id).append("<td>" + reservations[i].price + "</td>");
-          $("#tr" + reservations[i].id).append("<td>" + reservations[i].status + "</td>");
-          $("#tr" + reservations[i].id).append("</tr>");
+        $("#tr" + reservations[i].id).append("<td>" + reservations[i].id + "</td>");
+        $("#tr" + reservations[i].id).append("<td>" + reservations[i].date_start + "</td>");
+        $("#tr" + reservations[i].id).append("<td>" + reservations[i].date_end + "</td>");
+        $("#tr" + reservations[i].id).append("<td>" + reservations[i].price + "</td>");
+        $("#tr" + reservations[i].id).append("<td>" + reservations[i].status + "</td>");
+        $("#tr" + reservations[i].id).append("</tr>");
+      }
+      $('#dt-basic-checkbox').dataTable({
+        columnDefs: [{
+          orderable: false,
+          className: 'select-checkbox',
+          targets: 0
+        }],
+        select: {
+          style: 'os',
+          selector: 'td:first-child'
         }
-        $('#dt-basic-checkbox').dataTable({
-          columnDefs: [{
-            orderable: false,
-            className: 'select-checkbox',
-            targets: 0
-          }],
-          select: {
-            style: 'os',
-            selector: 'td:first-child'
-          }
-        });
-      };
+      });
+    };
     // SET STATUS BUTTON
 
     function setStatus(id, index) {
       var token = JSON.parse(sessionStorage.getItem("token"));
-      var status = $(`#statusCb${id}`).val()
+      var status = $(`#statusCb${id}`).val();
       $.ajax({
         type: 'PUT',
         url: `http://localhost:8080/reservations/${id}`,
@@ -77,14 +96,14 @@
         data: {
           "status": status
         },
-        headers: {"Authorization": "Bearer " + token.token},
+        headers: { "Authorization": "Bearer " + token.token },
         success: function (data) {
           alert('Status set');
           var reservations = JSON.parse(sessionStorage.getItem("reservations"));
 
           reservations[index].status = status;
-          sessionStorage.setItem('reservations',  JSON.stringify(reservations)); 
-          location.reload(); 
+          sessionStorage.setItem('reservations', JSON.stringify(reservations));
+          location.reload();
         },
         error: function () {
           alert('Failed to set status');
@@ -92,6 +111,11 @@
       });
 
     }
+
+    $(document).on('click', '#logout', function () {
+      sessionStorage.removeItem("token");
+      window.location.href = "login.html";
+    });
   </script>
 
 </head>
@@ -100,7 +124,7 @@
 
   <header>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-      <a class="navbar-brand" href="#index">Hotel Reservation System</a>
+      <a class="navbar-brand" href="index.html">Hotel Reservation System</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
         aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -108,22 +132,21 @@
       <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="#index">Strona główna <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="index.html">Strona główna <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#reserve">Zarezerwuj</a>
+            <a class="nav-link" href="index.html#reserve">Zarezerwuj</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#check">Sprawdź stan rezerwacji</a>
+            <a class="nav-link" href="index.html#check">Sprawdź stan rezerwacji</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#contact">Kontakt</a>
+            <a class="nav-link" href="index.html#contact">Kontakt</a>
+          </li>
+          <li class="nav-item">
+            <button class='btn btn-dark' id='logout'>Wyloguj</button>
           </li>
         </ul>
-        <!-- <form class="form-inline mt-2 mt-md-0">
-            <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-          </form> -->
       </div>
     </nav>
   </header>
@@ -142,10 +165,10 @@
           <div class="container">
             <div class="carousel-caption text-left">
               <h1 class="carouselText">Luksusowe pokoje</h1>
-              <p class="carouselText">W naszym hotelu znajdziecie Państwo luksusowe pokoje, które zadowolą nawet
-                najbardziej wymagających
+              <p class="carouselText">W naszym hotelu znajdziecie Państwo luksusowe pokoje, które zadowolą
+                nawet najbardziej wymagających
                 klientów</p>
-              <p><a class="btn btn-lg btn-primary" href="index.html#reserve" role="button">Zarezerwuj</a></p>
+              <p><a class="btn btn-lg btn-primary" href="#" role="button">Zarezerwuj</a></p>
             </div>
           </div>
         </div>
@@ -154,9 +177,9 @@
           <div class="container">
             <div class="carousel-caption">
               <h1 class="carouselText">Konkurencyjne ceny</h1>
-              <p class="carouselText">Ceny naszych apartamentów są wyjatkowo atrakcyjne. Ceny rozpoczynają się od
-                80zł/noc</p>
-              <p><a class="btn btn-lg btn-primary" href="index.html#reserve" role="button">Zarezerwuj</a></p>
+              <p class="carouselText">Ceny naszych apartamentów są wyjatkowo atrakcyjne. Ceny rozpoczynają się
+                od 80zł/noc</p>
+              <p><a class="btn btn-lg btn-primary" href="#" role="button">Zarezerwuj</a></p>
             </div>
           </div>
         </div>
@@ -165,7 +188,7 @@
           <div class="container">
             <div class="carousel-caption text-right">
               <h1 class="carouselText">Sprawdź stan swojej rezerwacji</h1>
-              <p><a class="btn btn-lg btn-primary" href="index.html#reserve" role="button">Sprawdź</a></p>
+              <p><a class="btn btn-lg btn-primary" href="#" role="button">Sprawdź</a></p>
             </div>
           </div>
         </div>
@@ -180,35 +203,35 @@
       </a>
     </div>
     <div id="to-top"><a href="#"><img src="src/img/arrow-up.png" width="42" height="42"></a></div>
-  </main>
 
-  <div class="col-md">
-    <h1> Lista rezerwacji:</h1>
-    <table id="dt-basic-checkbox" class="table table-striped table-bordered" cellspacing="0" width="100%">
+    <div class="col-md">
+      <h1> Lista rezerwacji:</h1>
+      <table id="dt-basic-checkbox" class="table table-striped table-bordered" cellspacing="0" width="100%">
 
-      <thead>
-        <tr>
+        <thead>
+          <tr>
+            <th scope="col">Akcja</th>
+            <th scope="col">Id rezerwacji</th>
+            <th scope="col">Początek najmu</th>
+            <th scope="col">Koniec najmu</th>
+            <th scope="col">Cena</th>
+            <th scope="col">Status</th>
+          </tr>
+        </thead>
+        <tbody id="room-table-body">
+        </tbody>
+        <tfoot>
           <th scope="col">Akcja</th>
           <th scope="col">Id rezerwacji</th>
           <th scope="col">Początek najmu</th>
           <th scope="col">Koniec najmu</th>
           <th scope="col">Cena</th>
           <th scope="col">Status</th>
-        </tr>
-      </thead>
-      <tbody id="room-table-body">
-      </tbody>
-      <tfoot>
-        <th scope="col">Akcja</th>
-        <th scope="col">Id rezerwacji</th>
-        <th scope="col">Początek najmu</th>
-        <th scope="col">Koniec najmu</th>
-        <th scope="col">Cena</th>
-        <th scope="col">Status</th>
-      </tfoot>
-    </table>
-  </div>
-  </br>
+        </tfoot>
+      </table>
+    </div>
+    </br>
+  </main>
 </body>
 <footer>
   <div style="margin: auto;

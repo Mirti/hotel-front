@@ -78,13 +78,19 @@
                         type: 'GET',
                         url: 'http://localhost:8080/reservations',
                         dataType: "json",
-                        headers: {"Authorization": "Bearer " + token.token},
+                        headers: { "Authorization": "Bearer " + token.token },
                         success: function (data) {
                             sessionStorage.setItem("reservations", JSON.stringify(data));
                             window.location.href = directory.concat("/admin.html");
                         },
+                        error: function () {
+                        alert('Failed to fetch reservations');
+                    }
                     });
                 },
+                error: function () {
+                    alert('Logowanie nieudane');
+                }
             });
         });
     </script>
