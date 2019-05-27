@@ -12,7 +12,7 @@ $(document).on('click', '#lgn-btn', function () {
 
     $.ajax({
         type: 'POST',
-        url: 'http://localhost:8080/login',
+        url: hostAddress + '/login',
         data: credentials,
         contentType: "application/json",
         dataType: "json",

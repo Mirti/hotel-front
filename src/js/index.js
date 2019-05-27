@@ -41,18 +41,22 @@ $(document).on('click', '#btn-available', function () {
     var start = new Date(startDate);
     var end = new Date(endDate);
 
-    if (Number(today) > Number(start) || Number(today) > Number(endDate)) {
+    if (Number(today) > Number(start) || Number(today) > Number(endDate) || startDate === endDate) {
         alert("Data wyjazdu lub data przyjazdu nieprawidłowa");
     } else {
         $.ajax({
             type: 'GET',
-            url: 'http://localhost:8080/apartments?filter={"date_start":"' + startDate + '","date_end":"' + endDate + '"}',
+            url: hostAddress + '/apartments?filter={"date_start":"' + startDate + '","date_end":"' + endDate + '"}',
             dataType: "json",
             success: function (data) {
-                sessionStorage.setItem("startDate", startDate);
-                sessionStorage.setItem("endDate", endDate);
-                sessionStorage.setItem("availableRooms", JSON.stringify(data));
-                window.location.href = directory.concat("/reservation.html");
+                if(data.length === 0){
+                    alert("Przepraszamy, brak wolnych apartamentów w tym terminie")
+                } else {
+                    sessionStorage.setItem("startDate", startDate);
+                    sessionStorage.setItem("endDate", endDate);
+                    sessionStorage.setItem("availableRooms", JSON.stringify(data));
+                    window.location.href = directory.concat("/reservation.html");
+                }
             },
         });
     }
@@ -74,7 +78,7 @@ $(document).on('click', '#btn-check', function () {
 
         $.ajax({
             type: 'GET',
-            url: "http://localhost:8080/reservations/" + token,
+            url: hostAddress + "/reservations/" + token,
             dataType: "json",
             success: function (data) {
                 sessionStorage.setItem("reservationDetails", JSON.stringify(data));

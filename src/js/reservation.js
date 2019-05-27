@@ -42,7 +42,7 @@ $(document).on('click', '#btn-reserve', function () {
     if (validate()) {
         $.ajax({
             type: 'POST',
-            url: 'http://localhost:8080/reservations',
+            url: hostAddress + '/reservations',
             dataType: "json",
             data: {
                 "apartment_id": apartmentId,
