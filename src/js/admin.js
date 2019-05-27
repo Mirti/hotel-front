@@ -38,7 +38,21 @@ function createTable() {
         $("#tr" + reservations[i].id).append("<td>" + reservations[i].date_start + "</td>");
         $("#tr" + reservations[i].id).append("<td>" + reservations[i].date_end + "</td>");
         $("#tr" + reservations[i].id).append("<td>" + reservations[i].price + "</td>");
-        $("#tr" + reservations[i].id).append("<td>" + reservations[i].status + "</td>");
+
+        switch (reservations[i].status) {
+            case "NEW":
+                $("#tr" + reservations[i].id).append("<td>Nowa</td>");
+                break;
+            case "CANCELLED":
+                $("#tr" + reservations[i].id).append("<td>Anulowana</td>");
+                break;
+            case "PAID":
+                $("#tr" + reservations[i].id).append("<td>Opłacona</td>");
+                break;
+            case "EXPIRED":
+                $("#tr" + reservations[i].id).append("<td>Wygasła</td>");
+                break;
+        }
         $("#tr" + reservations[i].id).append("</tr>");
     }
     $('#dt-basic-checkbox').dataTable({
